@@ -1,0 +1,22 @@
+---
+pt:
+  user_mailer:
+    confirmation_instructions:
+      subject: "Bem-vindo ao nosso aplicativo BakeSmart!"
+      welcome_message: |
+        <h1>Seja bem-vindo(a)!</h1>
+        <h2>Foi criado um acesso para si.</h2>
+        <p>Por favor entre em nosso <a href="#">website</a> com as seguintes credenciais:</p>
+        <p>Username: %{email}</p>
+        <p>Password: %{password}</p>
+        <br>
+        <p>Obrigado por se ter juntado à nossa família!</p>
+  controllers:
+    users:
+      registrations:
+        created_successfully: "Conta criada com sucesso."
+        not_created: "Usuário não pôde ser criado com sucesso. %{errors}"
+      sessions:
+        logged_in_successfully: "Conectado com sucesso."
+        logged_out_successfully: "Desconectado com sucesso."
+        no_active_session: "Não foi possível encontrar uma sessão ativa."

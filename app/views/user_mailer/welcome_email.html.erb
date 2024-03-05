@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <%= I18n.t('user_mailer.confirmation_instructions.welcome_message', email: @user.email, password: @user.password)%>
+  </body>
+</html>

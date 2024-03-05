@@ -1,0 +1,22 @@
+---
+en:
+  user_mailer:
+    confirmation_instructions:
+      subject: "Welcome to our app BakeSmart!"
+      welcome_message: |
+        <h1>Welcome!</h1>
+        <h2>An account has been created for you.</h2>
+        <p>Please log in to our <a href="#">website</a> with the following credentials:</p>
+        <p>Username: %{email}</p>
+        <p>Password: %{password}</p>
+        <br>
+        <p>Thank you for joining our family!</p>
+  controllers:
+    users:
+      registrations:
+        created_successfully: "Account created successfully."
+        not_created: "User couldn't be created successfully. %{errors}"
+      sessions:
+        logged_in_successfully: "Logged in successfully."
+        logged_out_successfully: "Logged out successfully."
+        no_active_session: "Couldn't find an active session."
