@@ -1,14 +1,13 @@
 class IngredientsController < ApplicationController
-  before_action :authenticate_user! 
   before_action :set_ingredient, only: %i[show update destroy]
   
   def index
     @ingredients = Ingredient.all
-    render json: @ingredients
+    render json: @ingredients.as_json(include: [:category, :measurement_unit])
   end
 
   def show
-    render json: @ingredient
+    render json: @ingredient.as_json(include: [:category, :measurement_unit])
   end
 
   def create
@@ -41,6 +40,6 @@ class IngredientsController < ApplicationController
   end
 
   def ingredient_params
-    params.require(:ingredient).permit(:name, :category_id, :measurement_unit_id, :price)
+    params.require(:ingredient).permit(:name, :category_id, :measurement_unit_id, :price, :brand, :quantity)
   end
 end
