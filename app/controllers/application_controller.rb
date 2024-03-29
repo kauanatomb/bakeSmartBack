@@ -2,6 +2,23 @@ class ApplicationController < ActionController::API
   include Pundit
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  private
+
+  def authenticate_user!
+    payload = JsonWebToken.decode(auth_token)
+    @current_user = User.find(payload["sub"])
+  rescue JWT::DecodeError
+    render json: {errors: ['Not Authenticated']}, status: :unauthorized
+  end
+
+  def auth_token
+    @auth_token ||= request.headers.fetch("Authorization", "").split(" ").last
+  end
+
+  def current_user
+    @current_user
+  end
+
   protected
   
   def configure_permitted_parameters

@@ -1,5 +1,6 @@
 class IngredientsController < ApplicationController
   before_action :set_ingredient, only: %i[show update destroy]
+  before_action :authenticate_user!, only: %i[create update destroy]
   
   def index
     @ingredients = Ingredient.all
@@ -11,7 +12,8 @@ class IngredientsController < ApplicationController
   end
 
   def create
-    @ingredient = Ingredient.new(ingredient_params).merge(owner_id: current_user.id)
+    @ingredient = Ingredient.new(ingredient_params)
+    @ingredient.owner_id = current_user.id
 
     if @ingredient.save
       render json: @ingredient, status: :created
