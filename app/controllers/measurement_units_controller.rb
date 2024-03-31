@@ -1,5 +1,6 @@
 class MeasurementUnitsController < ApplicationController
   before_action :set_measurement_unit, only: %i[show update destroy]
+  skip_before_action :authenticate_user!
   
   def index
     @measurement_units = MeasurementUnit.all

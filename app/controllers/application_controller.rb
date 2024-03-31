@@ -1,10 +1,12 @@
 class ApplicationController < ActionController::API
-  include Pundit
+  include Pundit::Authorization
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :authenticate_user!
 
   private
 
   def authenticate_user!
+
     payload = JsonWebToken.decode(auth_token)
     @current_user = User.find(payload["sub"])
   rescue JWT::DecodeError

@@ -1,9 +1,8 @@
 class IngredientsController < ApplicationController
   before_action :set_ingredient, only: %i[show update destroy]
-  before_action :authenticate_user!, only: %i[create update destroy]
   
   def index
-    @ingredients = Ingredient.all
+    @ingredients = Ingredient.where(owner_id: current_user.id)
     render json: @ingredients.as_json(include: [:category, :measurement_unit])
   end
 
@@ -31,6 +30,10 @@ class IngredientsController < ApplicationController
   end
 
   def destroy
+    if @ingredient.recipes.present?
+      render json: { error: 'Ingredient is used in a recipe' }, status: :unprocessable_entity
+      return
+    end
     @ingredient.destroy
     head :no_content
   end
