@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   resources :measurement_units
   resources :ingredients
   resources :recipes
+  resources :recipe_ingredients
 end

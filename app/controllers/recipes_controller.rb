@@ -34,7 +34,7 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipe_params.merge(user_id: current_user.id))
     if @recipe.save
-      render json: @recipe, status: :created
+      render json: @recipe.as_json, status: :created
     else
       render json: @recipe.errors, status: :unprocessable_entity
     end

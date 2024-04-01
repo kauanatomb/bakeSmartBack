@@ -1,9 +1,9 @@
-class RecipeIngredients < ApplicationController
+class RecipeIngredientsController < ApplicationController
   before_action :set_recipe_ingredient, only: %i[show destroy]
   before_action :authenticate_user!, only: %i[destroy]
 
   def index
-    @recipe_ingredients = RecipeIngredients.all
+    @recipe_ingredients = RecipeIngredient.all
     render json: @recipe_ingredients.as_json(include: [:recipe, :ingredient])
   end
 
@@ -19,7 +19,7 @@ class RecipeIngredients < ApplicationController
   private
 
   def set_recipe_ingredient
-    @recipe_ingredient = RecipeIngredients.find(params[:id])
+    @recipe_ingredient = RecipeIngredient.find(params[:id])
   end
 
   def recipe_ingredient_params
