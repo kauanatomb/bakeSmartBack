@@ -12,6 +12,7 @@ class IngredientsController < ApplicationController
 
   def create
     @ingredient = Ingredient.new(ingredient_params)
+    @ingredient.price = ingredient_params[:price].tr(',', '.').to_f
     @ingredient.owner_id = current_user.id
 
     if @ingredient.save
