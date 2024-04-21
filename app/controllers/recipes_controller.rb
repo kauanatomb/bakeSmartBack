@@ -3,18 +3,20 @@ class RecipesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[show]
 
   def index
-    @recipes = Recipe.where(user_id: current_user.id)
-    render json: @recipes.as_json(include: { 
-      recipe_ingredients: { 
-        except: [:recipe_id, :ingredient_id, :measurement_unit_id, :created_at, :updated_at],
-        include: { 
-          ingredient: { only: [:id, :name, :quantity, :price], include: {
-            measurement_unit: { only: [:id, :name, :symbol] },
-          } }, 
-          measurement_unit: { only: [:id, :name] }
+    @recipes = Recipe.where(user_id: current_user.id).map do |recipe|
+      recipe.as_json(include: { 
+        recipe_ingredients: { 
+          except: [:recipe_id, :ingredient_id, :measurement_unit_id, :created_at, :updated_at],
+          include: { 
+            ingredient: { only: [:id, :name, :quantity, :price], include: {
+              measurement_unit: { only: [:id, :name, :symbol] },
+            } }, 
+            measurement_unit: { only: [:id, :name] }
+          }
         }
-      }
-    })
+      }).merge(total_cost: calculate_recipe(recipe))
+    end
+    render json: @recipes
   end
 
   def show
@@ -28,7 +30,7 @@ class RecipesController < ApplicationController
           measurement_unit: { only: [:id, :name] }
         }
       }
-    }).merge(total_cost: calculate_recipe)
+    }).merge(total_cost: calculate_recipe(@recipe))
   end
 
   def create
@@ -53,8 +55,7 @@ class RecipesController < ApplicationController
     head :no_content
   end
 
-  def calculate_recipe
-    recipe = Recipe.find(params[:id])
+  def calculate_recipe(recipe)
     total_cost = 0
   
     recipe.recipe_ingredients.each do |recipe_ingredient|
