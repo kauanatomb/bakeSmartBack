@@ -24,8 +24,9 @@ RUN apt-get update -qq && \
 # Install application gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
-    ls -l "${BUNDLE_PATH}" && \
-    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git || true && \
+    if [ -n "${BUNDLE_PATH}" ] && [ -d "${BUNDLE_PATH}" ]; then \
+        rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git; \
+    fi && \
     bundle exec bootsnap precompile --gemfile
 
 # Copy application code
