@@ -55,4 +55,5 @@ gem 'rails-i18n'
 gem 'i18n-tasks'
 gem 'pundit'
 gem 'dotenv-rails'
+gem 'pg'
 

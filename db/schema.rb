@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_03_29_181909) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -21,10 +24,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_29_181909) do
     t.string "name", null: false
     t.float "quantity", null: false
     t.string "brand", null: false
-    t.integer "category_id"
-    t.integer "measurement_unit_id"
+    t.bigint "category_id"
+    t.bigint "measurement_unit_id"
     t.float "price", null: false
-    t.integer "owner_id", null: false
+    t.bigint "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_ingredients_on_category_id"
@@ -46,10 +49,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_29_181909) do
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|
-    t.integer "recipe_id", null: false
-    t.integer "ingredient_id", null: false
+    t.bigint "recipe_id", null: false
+    t.bigint "ingredient_id", null: false
     t.integer "quantity", null: false
-    t.integer "measurement_unit_id", null: false
+    t.bigint "measurement_unit_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
@@ -61,7 +64,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_29_181909) do
     t.string "name"
     t.text "description"
     t.string "cook_time"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_recipes_on_user_id"
