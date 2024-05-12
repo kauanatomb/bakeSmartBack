@@ -27,6 +27,6 @@ BakeSmart addresses this issue by providing users with a platform to input ingre
 
 ## Implementation
 
-- **Usage**: [Access the project here](https:bakesmartback.onrender.com)
+- **Usage**: [Access the project here](https://bakesmartback.onrender.com)
 - **Project Status**: The project is under constant maintenance. It's worth noting that there are two separate repositories: the backend (which has already been deployed) and the frontend, which hasn't been deployed yet because ingredient editing in the recipe needs to be fixed.
 
