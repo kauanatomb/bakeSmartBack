@@ -2,8 +2,8 @@
 
 one:
   name: MyString
-  abbreviation: MyString
+  symbol: MyString
 
 two:
   name: MyString
-  abbreviation: MyString
+  symbol: MyString
