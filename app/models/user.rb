@@ -12,9 +12,9 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }, on: :create
 
-  after_create :send_welcome_message
+  # after_create :send_welcome_message
 
-  def send_welcome_message
-    UserMailer.welcome_email(self).deliver_now
-  end
+  # def send_welcome_message
+  #   UserMailer.welcome_email(self).deliver_now
+  # end
 end
