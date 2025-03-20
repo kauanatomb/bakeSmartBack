@@ -1,6 +1,5 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: %i[show update destroy]
-  skip_before_action :authenticate_user!, only: %i[show]
 
   def index
     @recipes = Recipe.where(user_id: current_user.id).map do |recipe|

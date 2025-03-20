@@ -1,8 +1,14 @@
 #!/bin/bash -e
 
-# If running the rails server then create or migrate existing database
+# If running the rails server then create or migrate existing database & run seeds
 if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
   ./bin/rails db:prepare
+  if [ "$(./bin/rails runner 'puts Category.any? || User.any?')" == "false" ]; then
+    echo "Running seeds..."
+    ./bin/rails db:seed
+  else
+    echo "Seeds already applied, jumping..."
+  fi
 fi
 
 exec "${@}"

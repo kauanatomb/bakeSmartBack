@@ -1,6 +1,5 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show update destroy]
-  skip_before_action :authenticate_user!
 
   def show
     render json: @category
